@@ -47,7 +47,7 @@ const filteredReservations = reservations.filter((r) => {
 
     const fetchReservations = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/reservations");
+        const res = await fetch("/api/reservations");
         const data = await res.json();
         setReservations(data);
       } catch (err) {
@@ -68,7 +68,7 @@ const filteredReservations = reservations.filter((r) => {
   // --- CRUD İşlemleri ---
   const updateReservation = async (resv, newStatus) => {
     try {
-      await fetch(`http://localhost:5000/api/reservations/${resv.date}`, {
+      await fetch(`/api/reservations/${resv.date}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...resv, status: newStatus }),
@@ -80,7 +80,7 @@ const filteredReservations = reservations.filter((r) => {
 
   const deleteReservation = async (resv) => {
     try {
-      await fetch(`http://localhost:5000/api/reservations/${resv.date}`, {
+      await fetch(`/api/reservations/${resv.date}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...resv, status: "deleted" }),
@@ -93,7 +93,7 @@ const filteredReservations = reservations.filter((r) => {
   const saveEditReservation = async () => {
     if (!editingResv) return;
     try {
-      await fetch(`http://localhost:5000/api/reservations/${editingResv.date}`, {
+      await fetch(`/api/reservations/${editingResv.date}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editingResv),
@@ -107,7 +107,7 @@ const filteredReservations = reservations.filter((r) => {
 
   const addReservation = async () => {
     try {
-      await fetch(`http://localhost:5000/api/reservations`, {
+      await fetch(`/api/reservations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newReservation),

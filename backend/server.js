@@ -1,14 +1,26 @@
 import express from 'express';
-import cors from 'cors';
+import path from "path";
 import fs from 'fs';
 import { WebSocketServer } from 'ws';
+import { fileURLToPath } from "url";
 
 const app = express();
-app.use(cors());
 app.use(express.json());
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const reservationsFile = './reservations.json';
+
+// Bu iki satır, __dirname'i ESM modülüyle kullanmak için:
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// React build klasörünü statik olarak sun
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+// Diğer tüm istekleri React’in index.html’ine yönlendir (SPA fallback)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
 
 // WebSocket server
 const wss = new WebSocketServer({ port: 5001 });
@@ -72,4 +84,6 @@ app.post('/api/reservations', (req,res)=>{
   });
 });
 
-app.listen(PORT, ()=>console.log(`Backend running on port ${PORT}`));
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
