@@ -1,0 +1,9 @@
+body{font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+.hero-overlay{background: linear-gradient(0deg, rgba(0,0,0,0.45), rgba(0,0,0,0.15));}
+.available-day{cursor:pointer}
+.available-day:hover{transform:translateY(-3px);transition:.12s}
+
+.carousel-item img {
+  height: 600px;
+  object-fit: cover;
+}
